@@ -1,0 +1,59 @@
+<html>
+<head>
+<title>EZproxy clean up</title>
+</head>
+<h2>EZproxy URL clean up page</h2>
+
+<table>
+<tr><td>Enter URL to convert </td><td><input type="text" size="50" id="myText" value=""></td><td>
+<button onclick="myFunction()">Convert URL</button></td></tr>
+<tr><td>Converted URL</td><td><input id="myInput" type="text" size="50" value="" /></td><td>(Will also be copied to your clipboard automatically)</td></tr>
+</table>
+<script>
+function myFunction() {
+  var x = document.getElementById("myText").value;
+const url = new URL(x+'');
+  var host = url.hostname;
+  const ezpurl = /.[a-zA-Z0-9\-]*.idm.oclc.org/g
+  hostreptwee = host.replace(ezpurl, "");
+  const dashrep = /\-/g
+  cleanhost = hostreptwee.replace(dashrep, ".");
+  url.hostname = cleanhost;
+      var test = url;
+    document.getElementById("myInput").value = test;
+  var copyText = document.getElementById("myInput");
+  copyText.select();
+  document.execCommand("copy");
+  alert("The following converted URL has been copied to your clipboard: " + copyText.value);
+}
+</script>
+
+<hr />
+<b>How to use this page</b><br />
+Enter a URL created by a hosted EZproxy instance. It then removes the EZproxy info, so you are left with the original page.
+<p>
+<b>Why would you need this?</b><br />
+The EZproxy page will only be accessible to other users of your institution. As such, it is useless to include in citations and bibliographies, or to mail to third parties outside your own institution. By converting the URL to its original form, it can be used by anyone.
+<p>
+Once you hit <i>Convert URL</i> the cleaned up URL will automatically be copied to your clipboard (if your browser allows this).
+<p>
+<b>Limitations</b><br />
+<ul>
+<li>
+This only works for URLs created by hosted EZproxy instances using the following format:<br />
+<i>[http(s)://][rewritten-domain-name].[institution].idm.oclc.org</i><br />
+e.g. 
+<br />
+<i>https://journals-sagepub-com.tilburguniversity.idm.oclc.org/doi/full/10.1177/0969733
+0211001603</i>
+</ul>
+<p>
+<b>Credits</b><br />
+I used (code from) the following sources to figure out how to make this work:
+<ul>
+<li><a href="https://stackoverflow.com/questions/31059824/set-input-value-to-javascript-variable">https://stackoverflow.com/questions/31059824/set-input-value-to-javascript-variable</a> by user <a href="https://stackoverflow.com/users/4028085/brso05">brso05</a>
+<li><a href="https://dmitripavlutin.com/parse-url-javascript/">https://dmitripavlutin.com/parse-url-javascript/</a> by Dmitri Pavlutin
+<li><a href="https://stackoverflow.com/questions/49998724/click-to-copy-without-copy-button#49998954">https://stackoverflow.com/questions/49998724/click-to-copy-without-copy-button#49998954</a> by users <a href="https://stackoverflow.com/users/4891666/andrew-bone">Andrew Bone</a> and <a href="https://stackoverflow.com/users/5740382/kiran-shahi">Kiran Shahi</a>
+</ul>
+<br />
+</html>
